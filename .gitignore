@@ -3,3 +3,5 @@ next/
 *.png
 *.jpg
 *.jpeg
+.vscode
+next-parsed.json
