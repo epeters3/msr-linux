@@ -8,10 +8,7 @@ def main():
     print("Now loading JSON file...")
     with open("next-parsed.json", "r") as fp:
         commits = json.load(fp)
-    print("JSON data loaded. Now re-writing...")
-    with open("next-parsed.json", "w") as fp:
-        json.dump(commits, fp, separators=(',', ':'), default=str)
-    print("Finished.")
+    print("Finished loading JSON file.")
 
 
 if __name__ == '__main__':

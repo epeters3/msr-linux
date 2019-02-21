@@ -51,11 +51,13 @@ fieldsToExtract = {
     "author":
     Parser("author", r"Author\:.+<(.+@.+)>"),
     "date":
-    Parser("date", r"Date:\s+(.+)\s\+", str, parsedate),
+    Parser("date", r"Date:\s+(.+)", str, parsedate),
     "signedOffBy":
     Parser("signedOffBy", r"Signed[-|\s]off[-|\s]by\:.+<(.+@.+)>", list),
     "reviewedBy":
     Parser("reviewedBy", r"Reviewed[-|\s]by\:.+<(.+@.+)>", list),
+    "reportedBy":
+    Parser("reportedBy", r"Reported[-|\s]by\:.+<(.+@.+)>"),
     "ackedBy":
     Parser("ackedBy", r"Acked[-|\s]by\:.+<(.+@.+)>", list),
     "testedBy":
@@ -74,6 +76,7 @@ class NextCommit:
         self.date = None
         self.signedOffBy = []
         self.reviewedBy = []
+        self.reportedBy = []
         self.ackedBy = []
         self.testedBy = []
         self.CCd = []
