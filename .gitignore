@@ -4,4 +4,4 @@ next/
 *.jpg
 *.jpeg
 .vscode
-next-parsed.json
+*-parsed.json
