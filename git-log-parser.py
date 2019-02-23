@@ -47,11 +47,11 @@ def parsedate(datestr):
 
 fieldsToExtract = {
     "SHA":
-    Parser("SHA", r"commit ([a-zA-Z0-9]{40})"),
+    Parser("SHA", r"^commit ([a-zA-Z0-9]{40})"),
     "author":
-    Parser("author", r"Author\:.+<(.+@.+)>"),
+    Parser("author", r"^Author\:.+<(.+@.+)>"),
     "date":
-    Parser("date", r"Date:\s+(.+)", str, parsedate),
+    Parser("date", r"^Date:\s+(.+)", str, parsedate),
     "signedOffBy":
     Parser("signedOffBy", r"Signed[-|\s]off[-|\s]by\:.+<(.+@.+)>", list),
     "reviewedBy":
@@ -90,10 +90,11 @@ def reportprogress(itemsprocessed):
             print(".", end="")
 
 
-def main():
+def main(filename):
     commits = []
     commit = None
-    for line in sys.stdin.readlines():
+    print("Now parsing git history.")
+    for line in sys.stdin:
         if len(re.findall(fieldsToExtract["SHA"].regex, line,
                           re.IGNORECASE)) > 0:
             # We've reached a new commit
@@ -107,10 +108,12 @@ def main():
 
     # Add the last commit (it wasn't added in the loop)
     commits.append(commit.__dict__)
-    with open("next-parsed.json", "w") as fp:
+    with open(filename, "w") as fp:
+        print("Now writing to '{}'.".format(filename))
         json.dump(commits, fp, separators=(',', ':'), default=str)
     sys.stdout.flush()
+    print("Finished.")
 
 
 if __name__ == '__main__':
-    main()
+    main("mainline-parsed.json")
