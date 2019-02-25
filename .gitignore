@@ -1,7 +1,9 @@
 mainline/
 next/
+reports/
+.vscode
+
 *.png
 *.jpg
 *.jpeg
-.vscode
 *-parsed.json
